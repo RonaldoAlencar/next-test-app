@@ -7,6 +7,7 @@ import { object, string } from "yup"
 import Head from "./head"
 import Input from "@/app/components/Input"
 import { Lock, Mail } from "lucide-react"
+import Button from "@/app/components/Button"
 
 const userEmailSchema = object().shape({
   email: string().required('O E-mail é obrigatório').email('O e-mail é inválido'),
@@ -115,13 +116,12 @@ const LoginPage = () => {
           </div>
 
           <div className="flex flex-col w-full">
-            <button
-              className="bg-blue-700 text-white p-3 rounded-md w-full mt-4 hover:bg-blue-600 drop-shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-700"
-              disabled={email.isValid || password.isValid || email.value === '' || password.value === '' ? true : false}
+            <Button
+              type="button"
+              textContent="Entrar"
               onClick={handleUserLogin}
-            >
-              Entrar
-            </button>
+              disabled={email.isValid || password.isValid || email.value === '' || password.value === '' ? true : false}
+            />
           </div>
         </div>
       </div>
