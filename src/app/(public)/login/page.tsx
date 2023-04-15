@@ -8,6 +8,7 @@ import Head from "./head"
 import Input from "@/app/components/Input"
 import { Lock, Mail } from "lucide-react"
 import Button from "@/app/components/Button"
+import Modal from "@/app/components/Modal"
 
 const userEmailSchema = object().shape({
   email: string().required('O E-mail é obrigatório').email('O e-mail é inválido'),
@@ -31,6 +32,7 @@ const LoginPage = () => {
   const router = useRouter()
   const [email, setEmail] = useState<email>({ value: '', isValid: true })
   const [password, setPassword] = useState<password>({ value: '', isValid: true })
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleUserLogin = async () => {
     try {
@@ -109,7 +111,11 @@ const LoginPage = () => {
                 <label htmlFor="remember" className="text-gray-500 text-sm">Lembrar-me</label>
               </div>
 
-              <a href="#" className="text-blue-700 text-sm">Esqueci minha senha</a>
+              <a 
+                href="#" 
+                className="text-blue-700 text-sm"
+                onClick={() => setIsModalOpen(true)}
+              >Esqueci minha senha</a>
             </div>
           </div>
 
@@ -123,6 +129,29 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
+
+      <Modal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Recuperar senha"
+      >
+        <div className="flex flex-col justify-center items-center w-full">
+          <div className="flex flex-col w-full mt-2">
+            <Input
+              label="Digite seu e-mail para recuperar sua senha"
+              type="email"
+              name="email"
+              id="email"
+              onChange={(e) => setEmail({ value: e.target.value, isValid: validateField('email') ? false : true })}
+              errorMessage={!email.isValid && validateField('email')}
+              icon={{
+                component: <Mail size={24} />,
+                position: 'left'
+              }}
+            />
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }
