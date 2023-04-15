@@ -4,6 +4,9 @@ import { useRouter } from "next/navigation"
 import loginImage from "../../assets/login.jpg"
 import { useState } from "react"
 import { object, string } from "yup"
+import Head from "./head"
+import Input from "@/app/components/Input"
+import { Lock, Mail } from "lucide-react"
 
 const userEmailSchema = object().shape({
   email: string().required('O E-mail é obrigatório').email('O e-mail é inválido'),
@@ -52,8 +55,11 @@ const LoginPage = () => {
     }
   }
 
+  document.body.style.overflow = 'hidden'
+
   return (
     <div className="flex flex-row">
+      <Head />
       <div className="basis-2/5 drop-shadow-xl max-sm:hidden">
         <Image src={loginImage} alt="Login Image" className="h-screen overflow-hidden object-cover" />
       </div>
@@ -67,27 +73,33 @@ const LoginPage = () => {
 
           <div className="flex flex-col w-full">
             <div className="flex flex-col w-full mb-4">
-              <label htmlFor="email" className="text-gray-500 mb-2">E-mail</label>
-              <input 
-                type="email" 
-                name="email" 
+              <Input
+                label="E-mail"
+                type="email"
+                name="email"
                 id="email"
                 onChange={(e) => setEmail({ value: e.target.value, isValid: validateField('email') ? false : true })}
-                className="border border-gray-200 p-3 rounded-md focus:outline-none focus:ring focus:ring-blue-300 focus:border-transparent drop-shadow-sm"
+                errorMessage={!email.isValid && validateField('email')}
+                icon={{
+                  component: <Mail size={24} />,
+                  position: 'left'
+                }}
               />
-              {!email.isValid && <span className="text-red-500 text-sm mt-1">{validateField('email')}</span>}
             </div>
 
             <div className="flex flex-col w-full mb-4">
-              <label htmlFor="password" className="mb-2 text-gray-500">Senha</label>
-              <input 
+              <Input
+                label="Senha"
                 type="password"
                 name="password"
                 id="password"
                 onChange={(e) => setPassword({ value: e.target.value, isValid: validateField('password') ? false : true })}
-                className="border border-gray-200 p-3 rounded-md focus:outline-none focus:ring focus:ring-blue-300 focus:border-transparent drop-shadow-sm"
+                errorMessage={!password.isValid && validateField('password')}
+                icon={{
+                  component: <Lock size={24} />,
+                  position: 'right'
+                }}
               />
-              {!password.isValid && <span className="text-red-500 text-sm mt-1">{validateField('password')}</span>}
             </div>
           </div>
 
