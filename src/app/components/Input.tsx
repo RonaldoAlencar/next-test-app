@@ -26,8 +26,13 @@ export default function Input(props: InputProps) {
           className={props.className ? props.className : defaultClassName }
           onChange={props.onChange}
         />
-        {props.icon && (
-          <div className={`absolute ${props.icon.position}-3 top-3 text-gray-400`}>
+        {props.icon && props.icon.position === 'left' && (
+          <div className={`absolute top-3 left-3 text-gray-500`}>
+            {props.icon.component}
+          </div>
+        )}
+        {props.icon && props.icon.position === 'right' && (
+          <div className={`absolute top-3 right-3 text-gray-500`}>
             {props.icon.component}
           </div>
         )}

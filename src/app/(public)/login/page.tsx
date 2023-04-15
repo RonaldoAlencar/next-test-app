@@ -96,7 +96,7 @@ const LoginPage = () => {
                 errorMessage={!password.isValid && validateField('password')}
                 icon={{
                   component: <Lock size={24} />,
-                  position: 'right'
+                  position: 'left'
                 }}
               />
             </div>
