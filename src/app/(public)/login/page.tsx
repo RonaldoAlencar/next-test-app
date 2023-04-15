@@ -56,8 +56,6 @@ const LoginPage = () => {
     }
   }
 
-  document.body.style.overflow = 'hidden'
-
   return (
     <div className="flex flex-row">
       <Head />
