@@ -11,9 +11,7 @@ export const metadata = {
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  console.log('authenticated page')
   const data = await getServerSession(authOption)
-  console.log(data)
   
   if(!data) {
     redirect('/login')

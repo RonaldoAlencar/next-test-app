@@ -10,6 +10,9 @@ import { Lock, Mail } from "lucide-react"
 import Button from "@/app/components/Button"
 import Modal from "@/app/components/Modal"
 import { signIn } from "next-auth/react"
+import SocialIcon from "@/app/components/SocialIcon"
+import { BsGithub } from "react-icons/bs"
+import { FcGoogle } from "react-icons/fc"
 
 const userEmailSchema = object().shape({
   email: string().required('O E-mail é obrigatório').email('O e-mail é inválido'),
@@ -42,7 +45,6 @@ const LoginPage = () => {
       password: password.value,
       redirect: false
     })
-    console.log(response)
 
     if (!response || response.status !== 200) {
       return 
@@ -135,16 +137,14 @@ const LoginPage = () => {
               onClick={(event) => handleUserLogin(event)}
               disabled={email.isValid || password.isValid || email.value === '' || password.value === '' ? true : false}
             />
-            <Button
-              type="button"
-              textContent="Github"
-              onClick={() => signIn('github', { callbackUrl: process.env.NEXTAUTH_URL })}
-            />
-            <Button
-              type="button"
-              textContent="Google"
-              onClick={() => signIn('google', { callbackUrl: process.env.NEXTAUTH_URL })}
-            />
+          </div>
+
+          <div className="flex flex-col w-full mt-4">
+            <span className="text-gray-500 text-sm">Ou entre com</span>
+            <div className="flex flex-row justify-center items-center w-full gap-4">
+              <SocialIcon label="Github" icon={<BsGithub size={24} />} onClick={() => signIn('github', { callbackUrl: process.env.NEXTAUTH_URL })} />
+              <SocialIcon label="Google" icon={<FcGoogle size={24} />} onClick={() => signIn('google', { callbackUrl: process.env.NEXTAUTH_URL })} />
+            </div>
           </div>
         </div>
       </div>

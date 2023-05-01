@@ -15,11 +15,9 @@ export const authOption: NextAuthOptions = {
         };
 
         if (email === "ronaldo@test.com" && password === "123") {
-          console.log("usuário encontrado")
           return { id: 1, name: "Ronaldo", email: "ronaldo@test.com", expires: 60 * 60 * 24 * 30 };
         }
         
-        console.log("usuário não encontrado")
         throw new Error("Credenciais inválidas");
       },
     }),
