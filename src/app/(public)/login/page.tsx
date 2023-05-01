@@ -2,13 +2,14 @@
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import loginImage from "../../assets/login.jpg"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { object, string } from "yup"
 import Head from "./head"
 import Input from "@/app/components/Input"
 import { Lock, Mail } from "lucide-react"
 import Button from "@/app/components/Button"
 import Modal from "@/app/components/Modal"
+import { signIn } from "next-auth/react"
 
 const userEmailSchema = object().shape({
   email: string().required('O E-mail é obrigatório').email('O e-mail é inválido'),
@@ -34,12 +35,20 @@ const LoginPage = () => {
   const [password, setPassword] = useState<password>({ value: '', isValid: true })
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const handleUserLogin = async () => {
-    try {
-      router.push('/')
-    } catch (error: any) {
-      console.log(error)
+  const handleUserLogin = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault()
+    const response = await signIn('credentials', {
+      email: email.value,
+      password: password.value,
+      redirect: false
+    })
+    console.log(response)
+
+    if (!response || response.status !== 200) {
+      return 
     }
+
+    router.push('/')
   }
 
   const validateField = (field: string) => {
@@ -62,7 +71,7 @@ const LoginPage = () => {
     <div className="flex flex-row">
       <Head />
       <div className="basis-2/5 drop-shadow-xl max-sm:hidden">
-        <Image src={loginImage} alt="Login Image" className="h-screen overflow-hidden object-cover" />
+        <Image src={loginImage} alt="Login Image" className="h-screen overflow-hidden object-cover" priority={true} />
       </div>
       
       <div className="basis-3/5 flex flex-col justify-center items-center bg-zinc-50 h-screen max-sm:w-full max-sm:basis-full">
@@ -123,8 +132,18 @@ const LoginPage = () => {
             <Button
               type="button"
               textContent="Entrar"
-              onClick={handleUserLogin}
+              onClick={(event) => handleUserLogin(event)}
               disabled={email.isValid || password.isValid || email.value === '' || password.value === '' ? true : false}
+            />
+            <Button
+              type="button"
+              textContent="Github"
+              onClick={() => signIn('github', { callbackUrl: process.env.NEXTAUTH_URL })}
+            />
+            <Button
+              type="button"
+              textContent="Google"
+              onClick={() => signIn('google', { callbackUrl: process.env.NEXTAUTH_URL })}
             />
           </div>
         </div>
@@ -141,7 +160,7 @@ const LoginPage = () => {
               label="Digite seu e-mail para recuperar sua senha"
               type="email"
               name="email"
-              id="email"
+              id="email_recover"
               onChange={(e) => setEmail({ value: e.target.value, isValid: validateField('email') ? false : true })}
               errorMessage={!email.isValid && validateField('email')}
               icon={{
