@@ -2,7 +2,7 @@
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import loginImage from "../../assets/login.jpg"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { object, string } from "yup"
 import Head from "./head"
 import Input from "@/app/components/Input"
@@ -49,7 +49,7 @@ const LoginPage = () => {
       return 
     }
 
-    router.push('/')
+    router.push('/home')
   }
 
   const validateField = (field: string) => {
@@ -146,7 +146,7 @@ const LoginPage = () => {
                   key={index}
                   label={socialLogin.label}
                   icon={socialLogin.icon}
-                  onClick={() => signIn(socialLogin.name, { callbackUrl: process.env.NEXTAUTH_URL })}
+                  onClick={() => signIn(socialLogin.name, { callbackUrl: process.env.NEXT_HOME_PAGE })}
                 />
               ))}
             </div>

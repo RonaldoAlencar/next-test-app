@@ -4,7 +4,7 @@ import { getSession } from "next-auth/react"
 import { authOption } from "../../../pages/api/auth/[...nextauth]"
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
-import Header from "./Header"
+import Header from "./Header/Index"
 import './globals.css'
 
 export const metadata = {
