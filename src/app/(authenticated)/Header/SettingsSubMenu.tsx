@@ -19,7 +19,7 @@ export default function SettingsSubMenu({ show, setShow, userEmail, userName }: 
       className={show ? "relative" : "relative hidden"}
       onMouseLeave={() => setShow(false)}
     >
-      <div className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow bg-gray-700 divide-gray-600 absolute top-1 right-0 w-56">
+      <div className="z-50 my-4 text-base list-none divide-y divide-gray-100 rounded-lg shadow bg-gray-700 divide-gray-600 absolute top-1 right-0 w-56">
         <div className="px-4 py-3">
           <span className="block text-sm text-gray-900 text-white">{userName}</span>
           <span className="block text-sm  text-gray-500 truncate text-gray-400">{userEmail}</span>
