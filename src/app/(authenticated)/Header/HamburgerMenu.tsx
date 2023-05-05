@@ -28,7 +28,7 @@ function LinkItem ({ href, text, selected }: LinkItemProps) {
 export default function HamburgerMenu({ show }: HamburgerMenuProps) {
   return (
     <div className={show ? "items-center justify-between w-full md:flex md:w-auto md:order-1" : "hidden"}>
-      <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white bg-gray-800 md:bg-gray-900 border-gray-700">
+      <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 bg-gray-800 md:bg-gray-900 border-gray-700">
         <LinkItem href="/" text="Início" />
         <LinkItem href="/about" text="Sobre" selected={true} />
         <LinkItem href="/my-account" text="Minha Conta" />
