@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
 import Header from "./Header/Index"
 import './globals.css'
+import Container from "../components/Container"
 
 export const metadata = {
   title: 'Sistema Olá mundo!',
@@ -24,7 +25,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body suppressHydrationWarning={true}>
           <Provider>
             <Header session={data} />
-            {children}
+            <Container>
+              {children}
+            </Container>
           </Provider>
       </body>
     </html>
