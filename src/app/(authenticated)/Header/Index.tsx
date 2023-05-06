@@ -37,9 +37,15 @@ export default function Header({ session }: HeaderProps) {
     <nav className="border-gray-200 bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <a href="https://flowbite.com/" className="flex items-center">
-        <Image width={50} height={50} src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo" />
+        <Image 
+          width={50} 
+          height={50} 
+          src="https://flowbite.com/docs/images/logo.svg" 
+          className="h-8 mr-3"
+          alt="Flowbite Logo" 
+        />
         <span 
-          className="self-center text-2xl font-semibold whitespace-nowrap text-white"
+          className="self-center font-semibold whitespace-nowrap text-white sm:text-sm md:text-base lg:text-lg xl:text-xl"
         >
           Mural de Mensagens
         </span>
@@ -62,7 +68,7 @@ export default function Header({ session }: HeaderProps) {
             <Image 
               width={40} 
               height={40} 
-              className="rounded-full"
+              className="hidden object-cover w-10 h-10 mx-2 rounded-full md:block group-hover:hidden"
               src={session?.user?.image || '/'}
               alt={session?.user?.name || ''} 
             />
