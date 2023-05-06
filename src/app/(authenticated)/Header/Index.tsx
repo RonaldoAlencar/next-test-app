@@ -45,7 +45,7 @@ export default function Header({ session }: HeaderProps) {
           alt="Flowbite Logo" 
         />
         <span 
-          className="self-center font-semibold whitespace-nowrap text-white sm:text-sm md:text-base lg:text-lg xl:text-xl"
+          className="self-center font-semibold text-xl text-white tracking-tight"
         >
           Mural de Mensagens
         </span>
