@@ -4,7 +4,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ['avatars.githubusercontent.com', 'lh3.googleusercontent.com', 'cdn.discordapp.com'],
+    domains: ['avatars.githubusercontent.com', 'lh3.googleusercontent.com', 'cdn.discordapp.com', 'encrypted-tbn0.gstatic.com'],
   },
   env: {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
