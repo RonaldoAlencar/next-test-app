@@ -10,7 +10,7 @@ type ButtonProps = {
 }
 
 export default function Button(props: ButtonProps) {
-  const [defaultClassName, setDefaultClassName] = useState('bg-blue-700 text-white p-3 rounded-md w-full mt-4 hover:bg-blue-600 drop-shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-700')
+  const [defaultClassName, setDefaultClassName] = useState('bg-blue-700 text-white p-3 rounded-md w-full hover:bg-blue-600 drop-shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-700')
   const [defaultColor, setDefaultColor] = useState('bg-blue-700 hover:bg-blue-600')
 
   useEffect(() => {
