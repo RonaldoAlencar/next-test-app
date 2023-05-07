@@ -8,11 +8,11 @@ interface SettingsSubMenuProps {
 
 export default function SettingsSubMenu({ show, setShow, userEmail, userName }: SettingsSubMenuProps) {
 
-  document.addEventListener('click', (e) => {
-    const element = e.target as HTMLElement;
-    if(element.tagName === 'IMG') return;
-    setShow(false)
-  })
+  // document.addEventListener('click', (e) => {
+  //   const element = e.target as HTMLElement;
+  //   if(element.tagName === 'IMG') return;
+  //   setShow(false)
+  // })
 
   return (
     <div 

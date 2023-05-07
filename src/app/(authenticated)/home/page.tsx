@@ -2,8 +2,25 @@
 import Button from "@/app/components/Button"
 import Card from "@/app/components/Card"
 import Input from "@/app/components/Input"
+import { getPosts } from "./services/get-posts"
+import { createPost } from "./services/create-post"
+import { getSession } from "next-auth/react"
 
-export default function Home() {
+export default async function Home() {
+  const posts = await getPosts()
+
+  async function handleSendPost() { 
+    const { user } = await getSession() as { user: { name: string, email: string, image: string } }
+    
+    await createPost({
+      authorName: user.name,
+      authorLinkPhoto: user.image,
+      content: (document.getElementById('whatAreYouThinking') as HTMLInputElement).value,
+    })
+
+    location.reload()
+  }
+
   return (
       <>
       <div className="mt-2 flex gap-2">
@@ -18,34 +35,23 @@ export default function Home() {
         </div>
         <div className="flex-2">
           <Button
-            onClick={() => {}}
+            onClick={handleSendPost}
             textContent="Publicar"
             type="button"
             color="success"
           />
         </div>
       </div>
-      <div className="flex gap-2 md:gap-2 flex-col md:flex-row">
-        <Card
-          userImageURL="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl8Ea9cyIi_U8y7mgzqX1SitKtppQOzlciXA&usqp=CAU"
-          userName="John Doe"
-          postDate="06/05/2023 às 15:00"
-          postContent="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum, voluptate, quibusdam, quia quod voluptas quos dolorum quae voluptatibus quas natus. Quisquam voluptatum, voluptate, quibusdam, quia quod voluptas quos dolorum quae voluptatibus quas natus. Quisquam voluptatum, voluptate, quibusdam, quia quod voluptas quos dolorum quae voluptatibus quas natus."
-        />
-
-        <Card
-          userImageURL="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl8Ea9cyIi_U8y7mgzqX1SitKtppQOzlciXA&usqp=CAU"
-          userName="John Doe"
-          postDate="06/05/2023 às 15:00"
-          postContent="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum, voluptate, quibusdam, quia quod voluptas quos dolorum quae voluptatibus quas natus. Quisquam voluptatum, voluptate, quibusdam, quia quod voluptas quos dolorum quae voluptatibus quas natus. Quisquam voluptatum, voluptate, quibusdam, quia quod voluptas quos dolorum quae voluptatibus quas natus."
-        />
-
-        <Card
-          userImageURL="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl8Ea9cyIi_U8y7mgzqX1SitKtppQOzlciXA&usqp=CAU"
-          userName="John Doe"
-          postDate="06/05/2023 às 15:00"
-          postContent="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum, voluptate, quibusdam, quia quod voluptas quos dolorum quae voluptatibus quas natus. Quisquam voluptatum, voluptate, quibusdam, quia quod voluptas quos dolorum quae voluptatibus quas natus. Quisquam voluptatum, voluptate, quibusdam, quia quod voluptas quos dolorum quae voluptatibus quas natus."
-        />
+      <div className="flex flex-wrap gap-4 mt-4 justify-evenly">
+        { posts.map((post) => (
+          <Card
+            key={post.id}
+            userImageURL={post.authorLinkPhoto}
+            userName={post.authorName}
+            postDate={post.publishedAt}
+            postContent={post.content}
+          />
+        ))}
       </div>
       </>
   )

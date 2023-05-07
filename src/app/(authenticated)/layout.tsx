@@ -22,7 +22,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang="pt-br">
-      <body suppressHydrationWarning={true}>
+      <body suppressHydrationWarning={true} className="bg-gray-100">
           <Provider>
             <Header session={data} />
             <Container>
