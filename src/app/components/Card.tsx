@@ -2,6 +2,7 @@ import Image from "next/image"
 import { YoutubeCounter } from '@charkour/react-reactions';
 import moment from "moment";
 import 'moment/locale/pt-br';
+import api from "@/api";
 moment.locale('pt-br');
 
 interface CardProps {
@@ -11,6 +12,7 @@ interface CardProps {
   postContent: string;
   likes?: string;
   dislikes?: string;
+  feedbackId?: string;
 }
 
 function PostContent({ postContent }: { postContent: string }) {
@@ -21,17 +23,27 @@ function PostContent({ postContent }: { postContent: string }) {
   )
 }
 
-function handleLikeClick() {
-  console.log('like clicked')
+async function handleLikeClick(feedbackId: string | undefined, likes: string, dislikes: string) {
+  await api.post('/post-feedback', {
+    feedbackId,
+    like: parseInt(likes) + 1,
+    dislike: parseInt(dislikes)
+  })
+  location.reload()
 }
 
-function handleDislikeClick() {
-  console.log('dislike clicked')
+async function handleDislikeClick(feedbackId: string | undefined, dislikes: string, likes: string) {
+  await api.post('/post-feedback', {
+    feedbackId,
+    dislike: parseInt(dislikes) + 1,
+    like: parseInt(likes)
+  })
+  location.reload()
 }
 
-export default function Card({ userImageURL, userName, postDate, postContent, likes = "0", dislikes = "0"}: CardProps) {
+export default function Card({ userImageURL, userName, postDate, postContent, likes = "0", dislikes = "0", feedbackId}: CardProps) {
   return (
-    <div className={`bg-white shadow-lg rounded-lg flex flex-col space-y-4 p-4 w-full md:w-fit hover:scale-125 transition duration-300 ease-in-out cursor-pointer`}>
+    <div className={`bg-white shadow-lg rounded-lg flex flex-col space-y-4 p-4 w-full cursor-pointer`}>
       
       <div className="flex gap-10 items-center md:justify-items-start justify-between">
         <div className="flex items-center space-x-4">
@@ -58,8 +70,8 @@ export default function Card({ userImageURL, userName, postDate, postContent, li
         <YoutubeCounter
           like={likes}
           dislike={dislikes}
-          onLikeClick={handleLikeClick}
-          onDislikeClick={handleDislikeClick}
+          onLikeClick={() => handleLikeClick(feedbackId, likes, dislikes)}
+          onDislikeClick={() => handleDislikeClick(feedbackId, dislikes, likes)}
         />
       </div>
     </div>

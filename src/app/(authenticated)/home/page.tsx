@@ -42,7 +42,7 @@ export default async function Home() {
           />
         </div>
       </div>
-      <div className="flex flex-wrap gap-4 mt-4 justify-evenly">
+      <div className="flex flex-wrap gap-2 mt-4 mx-0 sm:mx-24">
         { posts.map((post) => (
           <Card
             key={post.id}
@@ -50,6 +50,9 @@ export default async function Home() {
             userName={post.authorName}
             postDate={post.publishedAt}
             postContent={post.content}
+            likes={post.postFeedback.countLike.toString()}
+            dislikes={post.postFeedback.countDislike.toString()}
+            feedbackId={post.idPostFeedback.toString()}
           />
         ))}
       </div>
